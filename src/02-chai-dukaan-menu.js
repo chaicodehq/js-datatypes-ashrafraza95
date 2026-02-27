@@ -1,3 +1,4 @@
+
 /**
  * ☕ Raju ki Chai Dukaan - Menu Formatter
  *
@@ -29,4 +30,18 @@
  */
 export function formatChaiMenu(items) {
   // Your code here
+  if(!Array.isArray(items) || items.length === 0) return "";
+
+  const validItems = items.filter(item => typeof item.name === "string" &&
+    item.name.trim().length > 0 &&
+    item.price > 0
+  )
+
+  if(validItems.length === 0) return "";
+
+  return validItems.map(
+    item => `${item["name"].toUpperCase()} - Rs.${item.price}`
+  ).join(" | ")
 }
+
+console.log(formatChaiMenu([{ name: "masala chai", price: 15 }, { name: "samosa", price: 12 }]))

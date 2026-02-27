@@ -31,4 +31,38 @@
  */
 export function fixBollywoodTitle(title) {
   // Your code here
+
+  if(typeof title !== "string" || title.trim().length === 0) return "";
+
+  let newTitle = title.replace(/\s+/g, " ").trim();
+
+  const smallWords = new Set([
+    "ka", "ki", "ke",
+    "the", "of", "a", "an", "in"
+  ]);
+
+  let titles = newTitle.split(" ");
+
+
+
+
+  let titleName = titles.map((word, index) => {
+    const lower = word.toLowerCase();
+
+    if(index === 0){
+      return lower.charAt(0).toUpperCase() + lower.slice(1)
+    }
+
+    if(smallWords.has(lower)){
+      return lower;
+    }
+
+    return lower.charAt(0).toUpperCase() + lower.slice(1);
+
+
+  });
+
+  return titleName.join(' ')
 }
+
+console.log(fixBollywoodTitle("singh is the king"))

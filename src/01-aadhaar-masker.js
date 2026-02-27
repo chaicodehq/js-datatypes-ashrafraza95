@@ -29,4 +29,20 @@
  */
 export function maskAadhaar(aadhaarNumber) {
   // Your code here
+
+  if(typeof aadhaarNumber !== "string" || !/^\d{12}$/.test(aadhaarNumber)) return "INVALID"
+
+
+  if(aadhaarNumber){
+
+    let masked = aadhaarNumber.replace(/^\d{8}/, "XXXXXXXX");
+    
+    let maskedAadhaar = masked.replace(/(.{4})(?=.)/g, "$1-")
+    return maskedAadhaar;
+    
+    
+  }
+ 
 }
+
+console.log(maskAadhaar("123456789012"))

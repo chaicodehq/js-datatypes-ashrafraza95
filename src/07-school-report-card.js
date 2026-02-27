@@ -1,4 +1,5 @@
-/**
+ 
+ /**
  * 📝 School Report Card Generator
  *
  * Sharma ji ke bete ka report card generate karna hai! Student ka naam aur
@@ -42,4 +43,89 @@
  */
 export function generateReportCard(student) {
   // Your code here
+
+  if(typeof student !== "object" || student == null || typeof student.name !== "string" || 
+    student.name.length === 0 ) return null;
+
+  if(typeof student.marks !== "object" || Object.keys(student.marks).length === 0) return null;
+
+  const marks = student["marks"];
+
+  const marksArr = Object.values(marks);
+
+ for (const mark of marksArr){
+    if (mark < 0 || mark > 100) return null; 
+}
+
+const name = student.name;
+
+const totalMarks = marksArr.reduce( (acc, val) =>
+ { acc= acc + val;
+  return acc;
+}, 0);
+
+
+const subject = student["marks"]
+
+// marks = { maths: 85, science: 92, english: 78 }
+
+const scores = Object.values(marks);
+
+if (!scores.every(item => typeof item === "number" && Number.isFinite(item))) {
+  return null;
+}
+
+
+const numSubjectsArr = Object.keys(subject);
+
+const numSubjects = numSubjectsArr.length;
+
+// percentage: (totalMarks / (numSubjects * 100)) * 100,
+
+let percentage = (totalMarks / (numSubjects * 100)) * 100;
+
+percentage = parseFloat(percentage.toFixed(2));
+
+
+const grade = 
+percentage >= 90 ? "A+": 
+percentage >= 80 ? "A" :
+percentage >= 70 ? "B" : 
+percentage >= 60 ? "C" : 
+percentage >= 40 ? "D" : "F";
+
+// marks = { maths: 85, science: 92, english: 78 }
+
+const highestSubject = Object.entries(marks).reduce(
+  (max, current) => current[1] > max[1] ? current : max
+)[0];
+
+const lowestSubject = Object.entries(marks).reduce(
+  (min, current) => current[1] < min[1] ? current : min
+)[0];
+
+const passedSubjectsList = Object.entries(marks).filter((pass) => {if(pass[1] >= 40) return pass[0]}); 
+
+const passedSubjects = passedSubjectsList.map(sub => sub[0]);
+
+const failedSubjectsList = Object.entries(marks).filter((fail) => {if(fail[1] < 40) return fail[0]}); 
+
+const failedSubjects = failedSubjectsList.map(sub => sub[0]);
+
+const subjectCount = Object.keys(marks).length;
+
+return {
+  name,
+  totalMarks,
+  percentage,
+  grade,
+  highestSubject,
+  lowestSubject,
+  passedSubjects,
+  failedSubjects,
+  subjectCount
+
+
+}
+
 }

@@ -71,7 +71,7 @@
  *   //      passengers: [...], summary: { ..., allConfirmed: true }, chartPrepared: true }
  */
 export function processRailwayPNR(pnrData) {
-  if (!pnrData || typeof pnrData !== 'object') return null;
+  if (!pnrData || typeof pnrData !== "object") return null;
   if (typeof pnrData.pnr !== 'string') return null;
   if (pnrData.pnr.length !== 10 || !/^\d{10}$/.test(pnrData.pnr)) return null;
   if (!pnrData.train || typeof pnrData.train !== 'object') return null;
@@ -80,6 +80,8 @@ export function processRailwayPNR(pnrData) {
   const pnrFormatted = pnrData.pnr.slice(0, 3) + "-"
     + pnrData.pnr.slice(3, 6) + "-"
     + pnrData.pnr.slice(6);
+
+    
 
   const { number, name, from, to } = pnrData.train;
   const trainInfo = `Train: ${number} - ${name} | ${from} → ${to} | Class: ${pnrData.classBooked}`;

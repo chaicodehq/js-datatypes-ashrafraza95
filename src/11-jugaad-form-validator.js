@@ -63,4 +63,59 @@
  */
 export function validateForm(formData) {
   // Your code here
+
+const errors = {};
+
+const name = 
+
+(typeof formData.name === "string" && formData.name === formData.name.trim() && !/\s{2,}/.test(formData.name) && formData.name.trim().length >= 2 && formData.name.trim().length <= 50) ? true : errors["name"] = "Name must be 2-50 characters";
+
+
+const email = 
+(typeof formData.email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) ? true :
+errors["email"] = "Invalid email format";
+
+
+const phone =
+(typeof formData.phone === "string" && formData.phone.length === 10 && /^[6-9]\d{9}$/.test(formData.phone)) ? true : errors["phone"] = "Invalid Indian phone number";
+
+
+const age = 
+(Number(formData.age) && /^(1[6-9]|[2-9][0-9]|100)$/.test(formData.age)) ? true : 
+errors["age"] = "Age must be an integer between 16 and 100";
+
+const pincode =
+(typeof formData.pincode === "string" && formData.pincode.length === 6 && /^[1-9]\d{5}$/.test(formData.pincode)) ? true : 
+errors["pincode"] = "Invalid Indian pincode";
+
+
+// const state = formData.state?.trim() ?? ""
+
+// if (!state) {
+//   return errors["state"] = "State is required";
+// }
+
+const state = 
+(formData.state?.length > 0 && (formData.state.trim() ?? "")) ? true : 
+errors["state"] = "State is required"
+
+const agreeTerms = 
+Boolean(formData.agreeTerms) ? true : errors["agreeTerms"] = "Must agree to terms";
+
+
+if(name === true && email === true && phone === true && age === true && state === true && pincode === true && agreeTerms === true) {
+  return {
+    isValid : true,
+    errors
+    
+  } 
+
+
+} else {
+  return {
+    isValid : false,
+    errors
+  }
+}
+
 }
